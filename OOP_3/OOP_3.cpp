@@ -1,20 +1,69 @@
-﻿// OOP_3.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
-//
+﻿#include <iostream>
+#include <string>
+using namespace std;
 
-#include <iostream>
+class Figure {
+protected:
+    string name;
+    float a = 0;
+public:
+    Figure(string m_name, float m_a = 0) : name(m_name),
+        a(m_a) {}
+    virtual float area() = 0;
+};
+
+class Parallelogram : public Figure {
+protected:
+    float h = 0;
+public:
+    Parallelogram(float a, float m_h = 0) : Figure("Parallelogram", a),  h(m_h) {}
+    float area() override { return a * h; }
+    ~Parallelogram(){}
+};
+
+class Circle : public Figure {
+protected:
+    float r = 0;
+public:
+    Circle(float m_r) : Figure("Circle"),  r(m_r) {}
+    float area() override { return pow(r, 2) * 3.14; }
+    ~Circle(){}
+};
+
+class Rectangle : public Parallelogram {
+protected:
+    float b = 0;
+public:
+    Rectangle(float a, float m_b) : Parallelogram(a), b(m_b) {}
+    float area() override { return a * b; }
+    ~Rectangle() {}
+};
+
+class Rhombus : public Parallelogram {
+public:
+    Rhombus(float a, float h) : Parallelogram(a, h) {}
+    float area() override { return a * h; }
+    ~Rhombus() {}
+};
+
+class Square : public Parallelogram {
+public:
+    Square(float a) : Parallelogram(a) {}
+    float area() override { return pow(a, 2); }
+    ~Square() {}
+};
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    Parallelogram p0(2, 2);
+    Circle c0(2);
+    Rectangle r0(3, 4);
+    Rhombus rh0(2, 3);
+    Square s0(4);
+
+    cout << "Areas of figure: \nParallelogram:" << p0.area() 
+        << "\nCircle: " << c0.area() 
+        << "\nRectangle: " << r0.area() 
+        << "\nRhombus: " << rh0.area() 
+        << "\nSquare:" << s0.area();
 }
-
-// Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
-// Отладка программы: F5 или меню "Отладка" > "Запустить отладку"
-
-// Советы по началу работы 
-//   1. В окне обозревателя решений можно добавлять файлы и управлять ими.
-//   2. В окне Team Explorer можно подключиться к системе управления версиями.
-//   3. В окне "Выходные данные" можно просматривать выходные данные сборки и другие сообщения.
-//   4. В окне "Список ошибок" можно просматривать ошибки.
-//   5. Последовательно выберите пункты меню "Проект" > "Добавить новый элемент", чтобы создать файлы кода, или "Проект" > "Добавить существующий элемент", чтобы добавить в проект существующие файлы кода.
-//   6. Чтобы снова открыть этот проект позже, выберите пункты меню "Файл" > "Открыть" > "Проект" и выберите SLN-файл.
