@@ -53,6 +53,31 @@ public:
     ~Square() {}
 };
 
+class Car {
+protected:
+    string company = "NN";
+    string model = "NN";
+public:
+    Car(string m_company, string m_model) : company(m_company), model(m_model) {}
+    ~Car() {}
+};
+
+class PassengerCar : public virtual Car {
+public:
+    PassengerCar(string company) : Car(company, "passenger") {}
+    ~PassengerCar() {}
+};
+
+class Bus : public virtual Car {
+public:
+    Bus(string company) : Car(company, "bus") {}
+    ~Bus() {}
+};
+/*
+class Minivan : public PassengerCar, Bus {
+    Minivan() : 
+};
+*/
 int main()
 {
     Parallelogram p0(2, 2);
