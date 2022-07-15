@@ -58,26 +58,41 @@ protected:
     string company = "NN";
     string model = "NN";
 public:
-    Car(string m_company, string m_model) : company(m_company), model(m_model) {}
+    string get_comp() { return company; }
+    string get_model() { return model; }
+    Car(string m_company, string m_model) : company(m_company), model(m_model) {
+        cout << "Car of company " << get_comp() << " and model " << get_model();
+    }
     ~Car() {}
 };
 
-class PassengerCar : public virtual Car {
+class PassengerCar : virtual public Car {
 public:
-    PassengerCar(string company) : Car(company, "passenger") {}
+    PassengerCar(string company, string model) : Car(company, model) { 
+        cout << "Passenger car of company " << get_comp() << " and model " << get_model(); 
+    }
     ~PassengerCar() {}
 };
 
-class Bus : public virtual Car {
+class Bus : virtual public Car {
 public:
-    Bus(string company) : Car(company, "bus") {}
+    Bus(string company, string model) : Car(company, model) {
+        cout << "Bus of company " << get_comp() << " and model " << get_model();
+    }
     ~Bus() {}
 };
-/*
+
 class Minivan : public PassengerCar, Bus {
-    Minivan() : 
+    Minivan(string company, string model) :
+        Car(company, model), PassengerCar(company, model), Bus(company, model)
+    {
+        cout << "Minivan of company " << get_comp() << " and model " << get_model();
+    }
+    ~Minivan() {}
 };
-*/
+
+
+
 int main()
 {
     Parallelogram p0(2, 2);
@@ -91,4 +106,11 @@ int main()
         << "\nRectangle: " << r0.area() 
         << "\nRhombus: " << rh0.area() 
         << "\nSquare:" << s0.area();
+
+    Car car("CAT", "X");
+    PassengerCar pCar("Tesla", "X");
+    Bus bus("Kamaz", "-");
+    Minivan minivan("-", "-");
+
+
 }
